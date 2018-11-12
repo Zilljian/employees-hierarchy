@@ -3,12 +3,13 @@
 long Employee::employeeCount = 0;
 
 Employee::Employee(Builder* builder) : ID(++employeeCount){
-    name = builder->name;
-    surname = builder->surname;
-    specialization = builder->specialization;
-    salary = builder->salary;
-    currentTask = builder->currentTask;
-    currentDeadline = builder->currentDeadline;
+    name = builder->tempName;
+    surname = builder->tempSurname;
+    specialization = builder->tempSpec;
+    salary = builder->tempSalary;
+    currentTask = builder->firstTask;
+    currentDeadline = *(builder->firstDeadline);
+    hired = *(builder->firstHired);
 }
 
 std::string& Employee::getName() {
@@ -59,14 +60,15 @@ void Employee::fireEmployee() {
 }
 
 void Employee::printInstance() {
-    std::cout << name << "\n"
-    << surname << "\n"
-    << specialization << "\n"
-    << salary << "\n"
-    << hired << "\n";
-    if (isFired) std::cout << fired << "\n";
-    std::cout << ID << "\n"
-    << currentTask;
+    std::cout << "Name: " << name << "\n"
+    << "Surname: " << surname << "\n"
+    << "Specialization: " << specialization << "\n"
+    << "Salary: " << salary << "\n"
+    << "Hired: " << hired << "\n";
+    if (isFired) std::cout << "Fired: "<< fired << "\n";
+    std::cout << "ID: " << ID << "\n"
+    << "Last Task: " << currentTask;
+    std::cout.flush();
 }
 
 void Employee::setTask(std::string task, Date deadline) {
@@ -105,18 +107,21 @@ Employee::Builder::Builder(
         std::string surname,
         std::string spec,
         long salary
-        ): name(name), surname(surname), specialization(spec), salary(salary){}
+        ): tempName(name), tempSurname(surname), tempSpec(spec), tempSalary(salary){
+    firstHired = new Date;
+    firstDeadline = new Date;
+}
 
 void Employee::Builder::setHiredDate(Date newDate) {
-    hired = newDate;
+    firstHired->setDate(newDate.getDateMs());
 }
 
 void Employee::Builder::setFirstTask(std::string firstTask) {
-    currentTask = firstTask;
+    this->firstTask = firstTask;
 }
 
 void Employee::Builder::setFirstDeadline(Date newDeadline) {
-    currentDeadline = newDeadline;
+    firstDeadline->setDate(newDeadline.getDateMs());
 }
 
 Employee Employee::Builder::createNewEmployee() {

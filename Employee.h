@@ -16,14 +16,14 @@ public:
     void setFirstTask(std::string);
     void setFirstDeadline(Date);
 
-    std::string name;
-    std::string surname;
-    std::string specialization;
-    long salary;
+    std::string tempName;
+    std::string tempSurname;
+    std::string tempSpec;
+    long tempSalary;
 
-    Date hired = Date();
-    std::string currentTask = "Have nothing to do";
-    Date currentDeadline = Date();
+    Date* firstHired;
+    std::string firstTask = "Have nothing to do";
+    Date* firstDeadline;
     Employee createNewEmployee();
 };
 
