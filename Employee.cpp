@@ -158,8 +158,6 @@ Employee::Employee(std::string initName, std::string initSurname, std::string sp
 }
 
 Employee::~Employee() {
-    delete currentDeadline;
     delete hired;
-    delete gotReady;
     if(isFired) delete fired;
 }

@@ -1,7 +1,7 @@
 #ifndef EMPLOYEES_HIERARCHY_EMPLOYEE_H
 #define EMPLOYEES_HIERARCHY_EMPLOYEE_H
 
-#include "date.h"
+#include "Date.h"
 #include <string>
 
 class Employee {
@@ -45,11 +45,6 @@ public:
     static long& getEmployeeNumber();
     virtual void printInstance();
     void fireEmployee();
-    void setTask(std::string,Date);
-    virtual bool isSuccessful();
-    void setReady();
-    const Date* getDeadline();
-    friend bool operator < (const Employee&,const Employee&);
     ~Employee();
 
 private:
@@ -62,10 +57,6 @@ private:
     long const ID;
     static long employeeCount;
     bool isFired = false;
-    Date* gotReady;
-    bool isReady = true;
-    std::string currentTask = "";
-    Date* currentDeadline;
 
 protected:
     Employee(Builder*);
