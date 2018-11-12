@@ -7,25 +7,30 @@
 class Employee {
 
 public:
+    Employee();
+    Employee(std::string,std::string,std::string,long);
+    Employee(std::string,std::string,std::string,long,Date);
+    Employee(std::string,std::string,std::string,long,Date,std::string,Date);
 
-class Builder {
-public:
-    Builder(std::string,std::string,std::string,long);
 
-    void setHiredDate(Date);
-    void setFirstTask(std::string);
-    void setFirstDeadline(Date);
+    class Builder {
+    public:
+        Builder(std::string,std::string,std::string,long);
 
-    std::string tempName;
-    std::string tempSurname;
-    std::string tempSpec;
-    long tempSalary;
+        Builder setHiredDate(Date);
+        Builder setFirstTask(std::string);
+        Builder setFirstDeadline(Date);
 
-    Date* firstHired;
-    std::string firstTask = "Have nothing to do";
-    Date* firstDeadline;
-    Employee createNewEmployee();
-};
+        std::string tempName;
+        std::string tempSurname;
+        std::string tempSpec;
+        long tempSalary;
+
+        Date* firstHired;
+        std::string firstTask = "Have nothing to do";
+        Date* firstDeadline;
+        Employee createNewEmployee();
+    };
 
     std::string& getName();
     void setName(std::string);
@@ -34,8 +39,8 @@ public:
     std::string& getSpecialization();
     long& getSalary();
     virtual void setSalary(long);
-    Date& getHiredDate();
-    Date& getFiredDate();
+    const Date* getHiredDate();
+    const Date* getFiredDate();
     const long getId();
     static long& getEmployeeNumber();
     virtual void printInstance();
@@ -43,23 +48,24 @@ public:
     void setTask(std::string,Date);
     virtual bool isSuccessful();
     void setReady();
-    Date getDeadline();
+    const Date* getDeadline();
     friend bool operator < (const Employee&,const Employee&);
+    ~Employee();
 
 private:
     std::string name;
     std::string surname;
     std::string specialization;
     long salary;
-    Date hired;
-    Date fired;
+    Date* hired;
+    Date* fired;
     long const ID;
     static long employeeCount;
     bool isFired = false;
-    Date gotReady;
+    Date* gotReady;
     bool isReady = true;
-    std::string currentTask;
-    Date currentDeadline;
+    std::string currentTask = "";
+    Date* currentDeadline;
 
 protected:
     Employee(Builder*);
