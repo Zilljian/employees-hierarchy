@@ -10,7 +10,6 @@ public:
     Employee();
     Employee(std::string,std::string,std::string,long);
     Employee(std::string,std::string,std::string,long,Date);
-    Employee(std::string,std::string,std::string,long,Date,std::string,Date);
 
 
     class Builder {
@@ -18,8 +17,6 @@ public:
         Builder(std::string,std::string,std::string,long);
 
         Builder setHiredDate(Date);
-        Builder setFirstTask(std::string);
-        Builder setFirstDeadline(Date);
 
         std::string tempName;
         std::string tempSurname;
@@ -27,8 +24,6 @@ public:
         long tempSalary;
 
         Date* firstHired;
-        std::string firstTask = "Have nothing to do";
-        Date* firstDeadline;
         Employee createNewEmployee();
     };
 
@@ -45,13 +40,14 @@ public:
     static long& getEmployeeNumber();
     virtual void printInstance();
     void fireEmployee();
+    virtual bool isSuccessful(Employee&);
+    friend bool operator < (const Employee&,const Employee&);
     ~Employee();
 
 private:
     std::string name;
     std::string surname;
     std::string specialization;
-    long salary;
     Date* hired;
     Date* fired;
     long const ID;
@@ -60,6 +56,7 @@ private:
 
 protected:
     Employee(Builder*);
+    long salary;
 };
 
 

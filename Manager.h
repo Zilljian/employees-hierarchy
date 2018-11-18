@@ -7,6 +7,8 @@
 #include <string>
 
 struct currentWork {
+    bool isDone = false;
+    Date done = Date();
     Employee* subordinate;
     std::string task;
     Date deadline;
@@ -18,18 +20,20 @@ public:
     Manager(std::string,std::string,std::string,long,Date);
 
 
-    void addTask(Employee&,Date,std::string);
-    bool isSubordinate(Employee);
-    void addSubordinate(Employee&);
-    void addSubordinate(std::set<Employee>);
-    void removeSubordinate(Employee);
-    void setEmployeeSalary(Employee &, long);
-
-    bool isSuccessful() override;
+    virtual void addTask(Employee&,Date,std::string);
+    virtual bool isSubordinate(Employee&);
+    virtual void addSubordinate(Employee&);
+    virtual void addSubordinate(std::set<Employee>);
+    virtual void removeSubordinate(Employee&);
+    virtual void setEmployeeSalary(Employee&,long);
+    virtual std::set<Employee*>* getSubordinateList();
+    bool isSuccessful(Employee&) override;
     void printInstance() override;
 
 private:
     std::vector<currentWork*> taskList;
+
+protected:
     std::set<Employee*> subordinateList;
 };
 
